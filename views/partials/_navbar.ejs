@@ -1,0 +1,13 @@
+<!-- views/partials/_navbar.ejs -->
+
+<nav>
+  <% if(user) { %>
+  <a href="/users/<%=user._id%>/applications">Your Apps</a>
+  <a href="/auth/sign-out">Sign Out</a>
+  <% } else { %>
+  <a href="/auth/sign-in">Sign In</a>
+  <a href="/auth/sign-up">Sign Up</a>
+  <% } %>
+</nav>
+
+<!-- The above code applies conditional rendering based on the existence of a user. When setting up our passUserToView middleware, we either passed a user object or null into the locals object of each page. The logic above reads, that if there is no signed-in user, only the sign-in and sign-up links will be visible, otherwise the user will see a link to view all of their applications or sign out. -->

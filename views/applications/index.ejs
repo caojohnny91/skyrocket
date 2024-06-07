@@ -1,0 +1,25 @@
+<!-- views/applications/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Applications</title>
+  </head>
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Your Applications</h1>
+    <ul>
+      <% applications.forEach(application =>{ %>
+      <li>
+        <!-- Add a link around each title and company, directing to the 'show' page -->
+        <a href="/users/<%= user._id %>/applications/<%= application._id %>"
+          >" <%= application.title %> at <%= application.company %></a
+        >
+      </li>
+      <% }) %>
+    </ul>
+    <a href="/users/<%= user._id %>/applications/new">Add an Application</a>
+  </body>
+</html>
