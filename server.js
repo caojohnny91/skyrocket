@@ -6,11 +6,12 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 const session = require("express-session");
-// Now that we have our middleware created, we need to mount and use it in our server.
+// Now that we have our middleware created(isSignedIn & passUserToView), we need to mount and use it in our server.
 const isSignedIn = require("./middleware/is-signed-in.js"); // new middleware required
 const passUserToView = require("./middleware/pass-user-to-view.js"); // new middleware required
 
 const authController = require("./controllers/auth.js");
+const applicationCtrl = require("./routes/applications.js") // Import the applications controller in server.js. 
 
 const port = process.env.PORT ? process.env.PORT : "3000";
 
@@ -31,9 +32,8 @@ app.use(
   })
 );
 
-app.use(passUserToView); // new middleware
+app.use(passUserToView); // new middleware func. Important placement on when to use the middleware! U
 
-// server.js
 
 app.get("/", (req, res) => {
   // Check if the user is logged in
@@ -48,8 +48,12 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authController);
 app.use(isSignedIn); // new middleware that sets up auth to not get you past this route if not signed in
+// Important placement on when to use the middleware! User should be signed in to view any of the routes. Therefor isSignedIn should be above the foods controller, but not before authController
+
 // app.use("/users/applications", require("./routes/applications.js")); // new from david since we split the applications.js in routes and controllers instead of app.use('/users/applications', applicationsController);
-app.use("/users/:userId/applications", require("./routes/applications.js")); // Without a signed-in user, we were able to build and test our first route in the applications controller. However, all of our future routes require a userId for proper functionality, which can only come from having an active user.
+
+app.use("/users/:userId/applications", applicationCtrl); // Use middleware to direct incoming requests to /users/:userId/applications to the foods controller.
+// Without a signed-in user, we were able to build and test our first route in the applications controller. However, all of our future routes require a userId for proper functionality, which can only come from having an active user.
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const applicationCtrl = require("../controllers/applications"); // .. means go back one folder
 
-router.get("/", applicationCtrl.index); // connecting with controllers and triggers the index controller and taht runs
+router.get("/", applicationCtrl.index); // connecting with controllers and triggers the index controller and that runs
 
 // create the new route. This route should res.render() a new.ejs view:
 router.get("/new", applicationCtrl.new); // object.new
