@@ -44,7 +44,8 @@ app.get("/", (req, res) => {
     res.render("index.ejs");
     }
 });
-      
+
+// These middleware functions should run before any routes that check for a valid user or require a user to be signed in to view a page.      
 app.use(passUserToView); // new middleware func. Important placement on when to use the middleware! 
 app.use("/auth", authController);
 
