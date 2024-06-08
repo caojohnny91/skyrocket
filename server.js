@@ -32,7 +32,6 @@ app.use(
   })
 );
 
-app.use(passUserToView); // new middleware func. Important placement on when to use the middleware! U
 
 
 app.get("/", (req, res) => {
@@ -43,10 +42,12 @@ app.get("/", (req, res) => {
   } else {
     // Show the homepage for users who are not logged in
     res.render("index.ejs");
-  }
+    }
 });
-
+      
+app.use(passUserToView); // new middleware func. Important placement on when to use the middleware! 
 app.use("/auth", authController);
+
 app.use(isSignedIn); // new middleware that sets up auth to not get you past this route if not signed in
 // Important placement on when to use the middleware! User should be signed in to view any of the routes. Therefor isSignedIn should be above the foods controller, but not before authController
 
