@@ -12,6 +12,7 @@ const index = async (req, res) => {
   }
 };
 
+// created newAppForm because new is an JS function and cant be named
 function newAppForm(req, res) {
   res.render("applications/new.ejs");
 }
@@ -31,7 +32,7 @@ async function create(req, res) {
   } catch (error) {
     // If any errors, log them and redirect back home
     console.log(error);
-    res.redirect;
+    res.redirect("/");
   }
 }
 // from lecture

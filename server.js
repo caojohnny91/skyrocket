@@ -32,11 +32,18 @@ app.use(
   })
 );
 
+// These middleware functions should run before any routes that check for a valid user or require a user to be signed in to view a page.      
+app.use(passUserToView); // new middleware func. Important placement on when to use the middleware! 
 
 
 app.get("/", (req, res) => {
   // Check if the user is logged in
   if (req.session.user) {
+    // this was before middlware was installed
+      // res.render("index.ejs", { 
+  //   user: req.session.user,
+  // });
+
     // Redirect logged-in users to their applications index
     res.redirect(`/users/${req.session.user._id}/applications`);
   } else {
@@ -45,8 +52,6 @@ app.get("/", (req, res) => {
     }
 });
 
-// These middleware functions should run before any routes that check for a valid user or require a user to be signed in to view a page.      
-app.use(passUserToView); // new middleware func. Important placement on when to use the middleware! 
 app.use("/auth", authController);
 
 app.use(isSignedIn); // new middleware that sets up auth to not get you past this route if not signed in
