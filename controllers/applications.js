@@ -4,6 +4,8 @@ const index = async (req, res) => {
   // async function index(req, res) { //router.get('/', applicationCtrl.index); triggers this function and sends this route to render('applications/index.ejs')
   try {
     const currentUser = await User.findById(req.session.user._id);
+    // from Schema Model:applications: [applicationSchema]
+    // res.loacals.applications = currentUser.applications; BELOW is Davids way in one line
     res.render("applications/index.ejs", {
       applications: currentUser.applications,
     });
