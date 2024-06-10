@@ -23,8 +23,14 @@ const userSchema = mongoose.Schema({
     required: true,
   },
   applications: [applicationSchema], // embedding the applicationSchema here
+  jobTypes: [{type: [mongoose.Types.ObjectId], ref: 'JobType'}] // new referencing model (jobType), put in array to collect many jobTypes, just curly brackets for one jobType
 });
 
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
+
+// sky rocket is a one to many relationship, EMBEDDING
+// Embedding is the practice of storing related data within a single document. This is achieved by nesting sub-documents or arrays of sub-documents inside a parent document.
+
+// Referenceing is good for a many to many ERD relationship

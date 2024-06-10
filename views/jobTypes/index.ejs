@@ -1,0 +1,28 @@
+<!-- views/applications/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Apps</title>
+  </head>
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Job Types</h1>
+    <% jobTypes.forEach(jt => { %>
+    <li><%= jt.title %></li>
+    <% if(user){ %>
+    <form action="/user/<%= user._id %>/jobType/<%= jt._id %>" method="POST">
+      <button type="submit">Add</button>
+    </form>
+    <% } %> <% }) %>
+    <form action="/jobTypes" method="POST">
+      <label for="title">Name: </label>
+      <input type="text" name="title" />
+      <label for="jobFamily">Job Family: </label>
+      <input type="text" name="jobFamily" />
+      <button type="submit">create</button>
+    </form>
+  </body>
+</html>
