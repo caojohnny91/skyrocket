@@ -59,6 +59,7 @@ app.use(isSignedIn); // new middleware that sets up auth to not get you past thi
 
 // app.use("/users/applications", require("./routes/applications.js")); // new from david since we split the applications.js in routes and controllers instead of app.use('/users/applications', applicationsController);
 
+// app.use("/users/applications", applicationCtrl); // old before we added the is-sign-in and pass middleware methods.
 app.use("/users/:userId/applications", applicationCtrl); // Use middleware to direct incoming requests to /users/:userId/applications to the foods controller.
 // Without a signed-in user, we were able to build and test our first route in the applications controller. However, all of our future routes require a userId for proper functionality, which can only come from having an active user.
 
